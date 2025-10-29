@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Daftar Produk</h2>
+    <a href="{{ url_for('product.add') }}" class="btn btn-add">Tambah Produk Baru</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Produk</th>
+                <th>Deskripsi</th>
+                <th>Harga</th>
+                <th>Stok</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>Rp {{ "%.2f"|format(product.price) }}</td>
+                <td>{{ product.qty }}</td>
+                <td class="action-links">
+                    <a href="{{ url_for('product.edit', id=product.id) }}">Edit</a>
+                    <a href="{{ url_for('product.delete', id=product.id) }}">Hapus</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align: center;">Belum ada produk.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
